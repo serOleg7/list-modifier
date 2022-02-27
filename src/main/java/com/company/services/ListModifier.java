@@ -21,10 +21,10 @@ public class ListModifier implements IListModifier {
     @Override
     public List<String> modifyList(List<String> input, Rule rules) {
         IStringModifier stringModifier;
-        List<Class<?>> classes = rules.getListOfClasses();
+        List<Class<?>> filters = rules.getListOfFilters();
         for (int i = 0; i < input.size(); i++) {
             String res = input.get(i);
-            for (Class<?> clss : classes) {
+            for (Class<?> clss : filters) {
                 try {
                     stringModifier = (IStringModifier) clss.getDeclaredConstructor().newInstance();
                     res = stringModifier.modifyString(res);

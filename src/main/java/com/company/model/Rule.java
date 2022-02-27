@@ -8,18 +8,18 @@ import java.util.stream.Collectors;
 
 
 public class Rule {
-   private final List<Class<?>> classes;
+   private final List<Class<?>> filters;
 
-    public Rule(List<String> filters) {
-        classes = new Reflections("com.company.services").getTypesAnnotatedWith(Filter.class)
+    public Rule(List<String> rules) {
+        filters = new Reflections("com.company.services").getTypesAnnotatedWith(Filter.class)
                 .stream()
-                .filter(c -> filters.contains(c.getSimpleName().split("Filter")[0]))
+                .filter(c -> rules.contains(c.getSimpleName().split("Filter")[0]))
                 .collect(Collectors.toList());
 
     }
 
-    public List<Class<?>> getListOfClasses() {
-        return classes;
+    public List<Class<?>> getListOfFilters() {
+        return filters;
     }
 
 
