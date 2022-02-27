@@ -5,7 +5,8 @@ import com.company.interfaces.IStringModifier;
 import com.company.model.Rule;
 import com.vdurmont.emoji.EmojiParser;
 
-import java.util.*;
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 public class ListModifier implements IListModifier {
 
@@ -18,24 +19,28 @@ public class ListModifier implements IListModifier {
         return input;
     }
 
+
     @Override
     public List<String> modifyList(List<String> input, Rule rules) {
-        IStringModifier stringModifier;
+        IStringModifier stringModifier = null;
         List<Class<?>> filters = rules.getListOfFilters();
-        for (int i = 0; i < input.size(); i++) {
-            String res = input.get(i);
-            for (Class<?> clss : filters) {
-                try {
-                    stringModifier = (IStringModifier) clss.getDeclaredConstructor().newInstance();
-                    res = stringModifier.modifyString(res);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        for (Class<?> clss : filters) {
+            try {
+                stringModifier = (IStringModifier) clss.getDeclaredConstructor().newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            input.set(i, res);
+
+            for (int i = 0; i < input.size(); i++) {
+                String res = input.get(i);
+                res = stringModifier.modifyString(res);
+                input.set(i, res);
+            }
         }
         return input;
     }
+
+
 
 
 }

@@ -7,7 +7,6 @@ import java.util.List;
 public interface IListModifier {
     List<String> modifyList(List<String> input);
 
-
     List<String> modifyList(List<String> input, Rule rules);
 
 }
