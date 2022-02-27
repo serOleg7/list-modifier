@@ -1,4 +1,3 @@
-import com.company.enums.Type;
 import com.company.interfaces.IListModifier;
 import com.company.model.Rule;
 import com.company.services.ListModifier;
@@ -26,9 +25,18 @@ public class TestListModifier {
     @Test
     public void TestListModifierWithRules() {
         List<String> input = Arrays.asList(str, str1);
-        listModifier.modifyList(input, new Rule(Arrays.asList(Type.EMOJI, Type.VOCABULARY)));
+        listModifier.modifyList(input, new Rule(Arrays.asList("MyEmoji", "Vocabulary")));
         String str2 = "An awesome string emojis!";
         String str3 = "Here is a : !";
+        Assert.assertEquals(input, Arrays.asList(str2, str3));
+    }
+
+    @Test
+    public void TestListModifierWithOneRule() {
+        List<String> input = Arrays.asList(str, str1);
+        listModifier.modifyList(input, new Rule(List.of("MyEmoji")));
+        String str2 = "An awesome string with few emojis!";
+        String str3 = "Here is a boy: !";
         Assert.assertEquals(input, Arrays.asList(str2, str3));
     }
 

@@ -1,9 +1,11 @@
 package com.company.services;
 
+import com.company.annotations.Filter;
 import com.company.interfaces.IStringModifier;
 import com.vdurmont.emoji.EmojiParser;
 
-public class MyEmojiParser implements IStringModifier {
+@Filter
+public class MyEmojiFilter implements IStringModifier {
 
     @Override
     public String modifyString(String str) {

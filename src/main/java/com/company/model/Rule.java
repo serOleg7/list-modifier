@@ -1,18 +1,26 @@
 package com.company.model;
 
-import com.company.enums.Type;
+import com.company.annotations.Filter;
+import org.reflections.Reflections;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+
 
 public class Rule {
-    private final List<Type> types;
+   private final List<Class<?>> classes;
 
-    public Rule(List<Type> types) {
-        this.types = types;
+    public Rule(List<String> filters) {
+        classes = new Reflections("com.company.services").getTypesAnnotatedWith(Filter.class)
+                .stream()
+                .filter(c -> filters.contains(c.getSimpleName().split("Filter")[0]))
+                .collect(Collectors.toList());
+
     }
 
-    public List<Type> getListOfTypes() {
-        return types;
+    public List<Class<?>> getListOfClasses() {
+        return classes;
     }
+
 
 }

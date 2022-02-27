@@ -1,12 +1,14 @@
 package com.company.services;
 
+import com.company.annotations.Filter;
 import com.company.interfaces.IStringModifier;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class VocabularyParser implements IStringModifier {
+@Filter
+public class VocabularyFilter implements IStringModifier {
     private final List<String> vocabulary = Arrays.asList("with", "few", "boy");
 
 
