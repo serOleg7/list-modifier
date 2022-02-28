@@ -5,6 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 public class TestListModifier {
@@ -25,7 +26,7 @@ public class TestListModifier {
     @Test
     public void TestListModifierWithRules() {
         List<String> input = Arrays.asList(str, str1);
-        listModifier.modifyList(input, new Rule(Arrays.asList("MyEmoji", "Vocabulary")));
+        listModifier.modifyList(input, new Rule(new HashSet<>(Arrays.asList("MyEmoji", "Vocabulary"))));
         String str2 = "An awesome string emojis!";
         String str3 = "Here is a : !";
         Assert.assertEquals(input, Arrays.asList(str2, str3));
@@ -34,7 +35,7 @@ public class TestListModifier {
     @Test
     public void TestListModifierWithOneRule() {
         List<String> input = Arrays.asList(str, str1);
-        listModifier.modifyList(input, new Rule(List.of("MyEmoji")));
+        listModifier.modifyList(input, new Rule(new HashSet<>(List.of("MyEmoji"))));
         String str2 = "An awesome string with few emojis!";
         String str3 = "Here is a boy: !";
         Assert.assertEquals(input, Arrays.asList(str2, str3));

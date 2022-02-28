@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class Rule {
    private final List<Class<?>> filters;
 
-    public Rule(List<String> rules) {
+    public Rule(Set<String> rules) {
         filters = new Reflections("com.company.services").getTypesAnnotatedWith(Filter.class)
                 .stream()
                 .filter(c -> rules.contains(c.getSimpleName().split("Filter")[0]))
